@@ -41,7 +41,7 @@ By inspecting this file I learned that:
 
 ### Maize Data
 
-To extract maize data and SNP_IDs from 'fang_et_al_genotypes.txt' and create 'maize_genotypes.txt':
+To extract maize data and SNP_IDs from `fang_et_al_genotypes.txt` and create `maize_genotypes.txt`:
 ```
 $ head -n 1 fang_et_al_genotypes.txt > maize_genotypes.txt
 $ grep -E "(ZMMIL|ZMMLR|ZMMMR)" fang_et_al_genotypes.txt >> maize_genotypes.txt
@@ -52,17 +52,17 @@ To transpose the genotype data:
 $ awk -f transpose.awk maize_genotypes.txt > transposed_maize_genotypes.txt
 ```
 
-To remove the unecessary header lines from 'transposed_maize_genotypes' and sort by SNP_ID:
+To remove the unecessary header lines from `transposed_maize_genotypes` and sort by SNP_ID:
 ```
 $  tail -n +4 transposed_maize_genotypes.txt | sort -k1,1 > transposed_maize_genotypes_sorted.txt
 ```
 
-To remove header from 'snp_position.txt', cut out needed columns (SNP_ID, chromosome, position), and sort by SNP_ID:
+To remove header from `snp_position.txt`, cut out needed columns (SNP_ID, chromosome, position), and sort by SNP_ID:
 ```
 $ tail -n +2 snp_position.txt | cut -f 1,3,4 | sort -k1,1 > SNP_ID_chrm_position_sorted.txt
 ``` 
 
-To join 'SNP_ID_chrm_position_sorted.txt' and 'transposed_maize_genotypes_sorted.txt':
+To join `SNP_ID_chrm_position_sorted.txt` and `transposed_maize_genotypes_sorted.txt`:
 ```
 $ join -1 1 -2 1 -t $'\t' SNP_ID_chrm_position_sorted.txt transposed_maize_genotypes_sorted.txt > maize_SNP_chrm_pos.txt
 ```
@@ -94,7 +94,7 @@ $ for i in {1..10}; do sort -k3,3 -nr maize_chr_$i.txt | sed 's/?/-/g' > maize_d
  
 ### Teosinte Data
 
-To extract teosinte data and SNP_IDs from 'fang_et_al_genotypes.txt' and create 'teosinte_genotypes.txt':
+To extract teosinte data and SNP_IDs from `fang_et_al_genotypes.txt` and create `teosinte_genotypes.txt`:
 ```
 $ head -n 1 fang_et_al_genotypes.txt > teosinte_genotypes.txt
 $ grep -E "(ZMPBA|ZMPIL|ZMPJA)" fang_et_al_genotypes.txt >> teosinte_genotypes.txt
@@ -105,12 +105,12 @@ To transpose the genotype data:
 $ awk -f transpose.awk teosinte_genotypes.txt > transposed_teosinte_genotypes.txt
 ```
 
-To remove the unecessary header lines from 'transposed_maize_genotypes' and sort by SNP_ID:
+To remove the unecessary header lines from `transposed_maize_genotypes` and sort by SNP_ID:
 ```
 $  tail -n +4 transposed_teosinte_genotypes.txt | sort -k1,1 > transposed_teosinte_genotypes_sorted.txt
 ```
 
-To join 'SNP_ID_chrm_position_sorted.txt' and 'transposed_maize_genotypes_sorted.txt':
+To join `SNP_ID_chrm_position_sorted.txt` and `transposed_maize_genotypes_sorted.txt`:
 ```
 $ join -1 1 -2 1 -t $'\t' SNP_ID_chrm_position_sorted.txt transposed_teosinte_genotypes_sorted.txt > teosinte_SNP_chrm_pos.txt
 ```
