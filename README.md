@@ -9,6 +9,7 @@ $ wc -l fang_et_al_genotypes.txt
 $ awk -F "\t" '{print NF; exit}' fang_et_al_genotypes.txt
 $ file fang_et_al_genotypes.txt
 $ head fang_et_al_genotypes.txt | cut -f 1-20 | column -t
+$ tail fang_et_al_genotypes.txt | cut -f 1-20 | column -t
 ```
 
 By inspecting this file I learned that:
@@ -18,6 +19,7 @@ By inspecting this file I learned that:
 4. The first line is a header that contains the SNP_ID starting in column 4
 5. The genotype data starts in column 4
 6. Column 3 contains the group needed to identify species
+7. Missing data is encoded by `?`
 
 ### Attributes of `snp_position.txt`
 ```
@@ -26,6 +28,7 @@ $ wc -l snp_position.txt
 $ awk -F "\t" '{print NF; exit}' snp_position.txt
 $ file snp_position.txt
 $ head snp_position.txt | column -t
+$ tail snp_position.txt | column -t
 $ cut -f 1 snp_position.txt | tail -n +2 | sort -c
 ```
 
@@ -34,7 +37,7 @@ By inspecting this file I learned that:
 2. The file contains 984 lines, 15 columns, and is tab delimited
 3. The file consists of only ASCII characters
 4. The first line of the file is a header with column labels
-5. SNP_ID is listed in column 1
+5. Needed columns are 1 (SNP_ID), 3 (chromosome), column 4 (position)
 6. column 1 is sorted
 
 ## Data Processing
@@ -87,7 +90,7 @@ To sort the individual chromosome files by increasing position value:
 $ for i in {1..10}; do sort -k3,3 -n maize_chr_$i.txt > maize_incr_chr_$i.txt; done
 ```
 
-To sort the individual chromosome files by decreasing postition value and replace "?" with "-" (missing data):
+To sort the individual chromosome files by decreasing postition value and replace `?` with `-` (missing data):
 ```
 $ for i in {1..10}; do sort -k3,3 -nr maize_chr_$i.txt | sed 's/?/-/g' > maize_decr_chr_$i.txt; done
 ```
@@ -135,7 +138,7 @@ To sort the individual chromosome files by increasing position value:
 $ for i in {1..10}; do sort -k3,3 -n teosinte_chr_$i.txt > teosinte_incr_chr_$i.txt; done
 ```
 
-To sort the individual chromosome files by decreasing postition value and replace "?" with "-" (missing data):
+To sort the individual chromosome files by decreasing postition value and replace `?` with `-` (missing data):
 ```
 $ for i in {1..10}; do sort -k3,3 -nr teosinte_chr_$i.txt | sed 's/?/-/g' > teosinte_decr_chr_$i.txt; done
 ```
